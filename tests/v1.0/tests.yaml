@@ -1,0 +1,25 @@
+url: ""
+functions:
+- type: knative-workflow
+  id: replicate
+  image: gcr.io/direktiv/functions/replicate:test
+states:
+- id: state0
+  type: action
+  action:
+    function: replicate
+    input:
+      commands:
+      - command: Example of running replicate
+  transition: state1
+- id: state1
+  type: action
+  action:
+    function: replicate
+    input:
+      commands:
+      - command: Example of running replicate
+      files:
+      - data: Hello World
+        mode: "0755"
+        name: hello.txt
