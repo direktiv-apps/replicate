@@ -9,17 +9,31 @@ states:
   action:
     function: replicate
     input:
-      commands:
-      - command: Example of running replicate
+      api-key: jq(.secrets.replicate)
+      debug: true
+      input:
+        prompt: an green elephant jumping of a bridge with a parachute
+      model: stability-ai/stable-diffusion
+      version: f178fa7a1ae43a9a9af01b833b9d2ecf97b1bcb0acfd2dc5dd04895e042863f1
+    secrets:
+    - replicate
   transition: state1
 - id: state1
   type: action
+  catch:
+  - error: '*'
   action:
     function: replicate
     input:
-      commands:
-      - command: Example of running replicate
       files:
-      - data: Hello World
-        mode: "0755"
-        name: hello.txt
+      - file: /tests/in.png
+        mime: image/png
+        name: test
+      input:
+        one: two
+        six: 6
+        three: four
+      model: lambdal/text-to-pokemon
+      secrets:
+      - replicate
+      version: 3554d9e699e09693d3fa334a79c58be9a405dd021d3e11281256d53185868912
