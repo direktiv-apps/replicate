@@ -313,6 +313,11 @@ func doHttpRequest(debug bool, method, u, user, pwd string,
 		return ir, err
 	}
 
+	if debug {
+		fmt.Println("Content:")
+		fmt.Printf("%s", string(b))
+	}
+
 	if errNo200 && (resp.StatusCode < 200 || resp.StatusCode > 299) {
 		err = fmt.Errorf("response status is not between 200-299: %v (%v)", resp.StatusCode, resp.Status)
 		ir[resultKey] = err.Error()
